@@ -24,6 +24,6 @@ public class UserController {
     @ResponseBody
     public Object login(String username, String password, HttpServletRequest request){
         AuthUserVO userVO = userService.login(username,password);
-        return null;
+        return userVO;
     }
 }
