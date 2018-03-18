@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/mvc
+	   http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <!-- 扫描带有Spring相关注解（@Component、@Repository、@Service、@Controller）的类并进行实例化、初始化等  -->
+    <context:component-scan base-package="com.jingluu.admin.auth.controller"/>
+
+
+
+    <!-- 视图解释器，根据视图的逻辑名称寻找物理视图 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <!-- 物理视图地址的前缀 -->
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <!-- 物理视图地址的后缀 -->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--
+       annotation-driven,用于注册相关请求映射器，如：RequestMappingHandlerMapping和RequestMappingHandlerAdapter
+       ( 如配置了<mvc:resources/>，默认的Handler被用于处理静态资源，
+       通过@Controller注解的控制器需配置annotation-driven才能生效 )
+    -->
+   <!-- HandlerMapping,为用户发送的请求找到合适的Handler Adapter；
+        HandlerAdapter,可以简单的理解为调用Controller中的方法；
+        HandlerMapping与HnadlerAdapter配合使用：为url找到对应的Controller方法 -->
+    <mvc:annotation-driven>
+        <!--  消息转换器 -->
+        <mvc:message-converters>
+            <!--  JSON消息转换器 -->
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+               <property name="objectMapper">
+                   <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                       <property name="dateFormat">
+                           <bean class="java.text.SimpleDateFormat">
+                               <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                           </bean>
+                       </property>
+                       <property name="serializationInclusion">
+                           <value>ALWAYS</value>
+                       </property>
+                       <property name="config">
+                           <value type="com.fasterxml.jackson.databind.SerializationFeature">FAIL_ON_EMPTY_BEANS</value>
+                       </property>
+                   </bean>
+               </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 处理静态资源(自动注册SimpleUrlHandlerMapping) -->
+    <mvc:resources mapping="/assets/**" location="/assets/"/>
+
+</beans>

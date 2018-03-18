@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	   http://mybatis.org/schema/mybatis-spring
+	   http://mybatis.org/schema/mybatis-spring.xsd">
+
+    <context:property-placeholder location="classpath:jdbc.properties" />
+
+    <!-- 扫描带有Spring相关注解（@Component、@Repository、@Service、@Controller）的类并进行实例化、初始化等  -->
+    <context:component-scan base-package="com.jingluu.admin.auth.service"/>
+
+    <!-- 带连接池带数据源 -->
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg>
+            <bean class="com.zaxxer.hikari.HikariConfig">
+                <property name="dataSourceProperties">
+                    <props>
+                        <prop key="url">${jdbc.url}</prop>
+                        <prop key="user">${jdbc.username}</prop>
+                        <prop key="password">${jdbc.password}</prop>
+                    </props>
+                </property>
+                <property name="poolName" value="hikariDataSource"/>
+                <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
+                <property name="maximumPoolSize" value="10"/>
+                <property name="minimumIdle" value="5"/>
+                <property name="autoCommit" value="false"/>
+                <property name="connectionTimeout" value="30000"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <!-- 配置Mybatis的sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" depends-on="dataSource">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!-- 通过命名空间mybatis:scan自动扫描Mapper接口   -->
+    <mybatis:scan base-package="com.jingluu.admin.auth.dao" factory-ref="sqlSessionFactory"/>
+
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 事务通知，事务的处理者 -->
+    <!--
+    propagation，事务传播行为：
+    REQUIRED，如果有事务，则在事务中运行，如果没有当前事务，创建新的事务
+    SUPPORTS，如果有事务，则在事务中运行，如果没有当前事务，以非事务的方式运行
+    MANDATORY，必须在事务中运行，如果当前没有事务会抛异常
+    REQUIRES_NEW，挂起当前事务，创建新的事务
+    NOT_SUPPORTED，挂起当前事务，以非事务的方式运行
+    NEVER，无需事务，如果当前有事务则会抛出异常
+    NESTED，则支持事务嵌套嵌套，嵌套的事务独立与当前事务提交或者回滚
+    -->
+    <!--
+    isolation，事务隔离级（解决脏读、不可重复度、幻读）
+    DEFAULT，使用数据库默认的级别
+    READ_UNCOMMITTED，允许当前事务读取另一个事务尚未提交的数据（可能会导致脏读、不可重复度、幻读）
+    READ_COMMITTED，允许读取并发事务已经提交的数据（可以避免脏读，但不可避免不可重复读和幻读）
+    REPEATABLE_READ，可重复读（但不可避免幻读）
+    SERIALIZABLE，串行化（可避免脏读、不可重复度、幻读）
+    -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="*"  propagation="REQUIRED" isolation="DEFAULT"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 通过AOP配置声明式事务 -->
+    <!--
+        proxy-target-class：
+        默认false,表示jdk动态代理（只能代理接口）
+        true表cglib（Code Generation Library）动态代理（可以代理类）
+    -->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="txPoint" expression="execution(* com.jingluu.admin.auth.service..*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+    </aop:config>
+
+</beans>
