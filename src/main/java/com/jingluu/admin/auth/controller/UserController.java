@@ -27,15 +27,27 @@ public class UserController {
 
         String vCode = (String) request.getSession().getAttribute("verificationCode");
 
-        if(verificationCode == null || !"".equals(verificationCode.trim())){
+        if(username == null || "".equals(username.trim())
+                || password == null || "".equals(password.trim())){
+            responseBean.fail("请输入账号和密码");
+            return responseBean;
+        }
+
+        if(verificationCode == null || "".equals(verificationCode.trim())){
             responseBean.fail("请输入验证码");
+            return responseBean;
         }
 
         if(!vCode.equals(verificationCode.trim())){
             responseBean.fail("请正确输入验证码");
+            return responseBean;
         }
 
         AuthUserVO userVO = userService.login(username,password);
+
+        if(userVO == null){
+            responseBean.fail("账号或密码有误");
+        }
 
         responseBean.setData(userVO);
 

@@ -15,7 +15,12 @@ $(function () {
             },
             success : function (result) { //成功回调的方法
                 console.log(result);
-                //window.location = "/index";
+                if(result.status == 0){
+                    window.location = "/index";
+                }else {
+                    var msg = "<span style='color: red;'>" + result.message + "</span>"
+                    $(".login-box-msg").html(msg);
+                }
             },
             error : function (error) { //失败回调方法
                 console.log(error);
