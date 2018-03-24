@@ -48,8 +48,8 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-
     <mvc:view-controller path="/verificationCode" view-name="common/verificationCode" />
+    <mvc:view-controller path="/unauthorized" view-name="common/unauthorized"/>
 
     <!-- 处理静态资源(自动注册SimpleUrlHandlerMapping) -->
     <mvc:resources mapping="/assets/**" location="/assets/"/>

@@ -21,11 +21,11 @@
   <div class="login-box-body">
     <p class="login-box-msg">请登录</p>
       <div class="form-group has-feedback">
-        <input type="text" id="username" name="username" class="form-control" placeholder="账号">
+        <input type="text" id="username" name="username" value="admin" class="form-control" placeholder="账号">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" id="password" name="password" class="form-control" placeholder="密码">
+        <input type="password" id="password" name="password" value="admin" class="form-control" placeholder="密码">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -33,7 +33,7 @@
         <a href="javascript:void(0);" id="verificationCodeBtn" style="margin-left: 10px;" class="label label-success">换一个</a>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" id="verificationCode" name="verificationCode" class="form-control" placeholder="验证码">
+        <input type="text" id="verificationCode" name="verificationCode" value="${verificationCode}" class="form-control" placeholder="验证码">
         <span class="glyphicon form-control-feedback"></span>
       </div>
       <div class="row">

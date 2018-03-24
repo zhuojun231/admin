@@ -23,9 +23,17 @@ public class UserServiceImpl implements UserService {
         return this.findOne(vo);
     }
 
+    @Override
     public AuthUserVO findOne(AuthUserVO authUserVO){
         List<AuthUserVO> list = this.findList(authUserVO);
         return list == null ? null : list.get(0);
+    }
+
+    @Override
+    public AuthUserVO findByUsername(String username){
+        AuthUserVO vo = new AuthUserVO();
+        vo.setUsername(username);
+        return this.findOne(vo);
     }
 
     public List<AuthUserVO> findList(AuthUserVO authUserVO){
@@ -48,6 +56,8 @@ public class UserServiceImpl implements UserService {
             vo.setUsername(user.getUsername());
             vo.setPassword(user.getPassword());
             vo.setNickname(user.getNickname());
+            vo.setEnabled(user.getEnabled());
+            vo.setCreatedTime(user.getCreatedTime());
             users.add(vo);
         }
 

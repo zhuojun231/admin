@@ -6,7 +6,7 @@ $(function () {
     $("#loginBtn").click(function () {
         $.ajax({
             type : "POST", //请求方式：POST/GET
-            url : ctx + "/user/doLogin", //请求地址
+            url : ctx + "/doLogin", //请求地址
             dataType : "json", //服务器返回的数据类型（text/xml/json）
             data : { //传给服务器的参数
                 username : $("#username").val(),
