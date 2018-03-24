@@ -15,20 +15,26 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="${pageContext.request.contextPath}/assets/index2.html"><b>Admin</b>Jingluu</a>
+    <a href="${pageContext.request.contextPath}/assets/index2.html"><b>享乎管理后台</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">请登录</p>
-
-    <!-- <form action="${pageContext.request.contextPath}/user/login" method="post"> -->
       <div class="form-group has-feedback">
-        <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+        <input type="text" id="username" name="username" class="form-control" placeholder="账号">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+        <input type="password" id="password" name="password" class="form-control" placeholder="密码">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="form-group has-feedback">
+        <img id="verificationCodeImage" src="/verificationCode">
+        <a href="javascript:void(0);" id="verificationCodeBtn" style="margin-left: 10px;" class="label label-success">换一个</a>
+      </div>
+      <div class="form-group has-feedback">
+        <input type="text" id="verificationCode" name="verificationCode" class="form-control" placeholder="验证码">
+        <span class="glyphicon form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-8">
@@ -44,12 +50,10 @@
         </div>
         <!-- /.col -->
       </div>
-    <!--  </form> -->
-
   <!-- /.login-box-body -->
 </div>
 <!-- /.login-box -->
-
+</div>
 <!-- jQuery 3 -->
 <script src="${pageContext.request.contextPath}/assets/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
@@ -57,7 +61,7 @@
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/assets/plugins/iCheck/icheck.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/admin/login.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/admin/login.js?v=1.0.2"></script>
 
     <script>
   $(function () {

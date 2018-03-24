@@ -22,8 +22,23 @@ public class UserController {
 
     @RequestMapping("/doLogin")
     @ResponseBody
-    public Object login(String username, String password, HttpServletRequest request){
+    public Object login(String username, String password,String verificationCode, HttpServletRequest request){
+        ResponseBean responseBean = new ResponseBean();
+
+        String vCode = (String) request.getSession().getAttribute("verificationCode");
+
+        if(verificationCode == null || !"".equals(verificationCode.trim())){
+            responseBean.fail("请输入验证码");
+        }
+
+        if(!vCode.equals(verificationCode.trim())){
+            responseBean.fail("请正确输入验证码");
+        }
+
         AuthUserVO userVO = userService.login(username,password);
-        return userVO;
+
+        responseBean.setData(userVO);
+
+        return responseBean;
     }
 }

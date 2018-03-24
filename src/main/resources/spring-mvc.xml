@@ -13,8 +13,6 @@
     <!-- 扫描带有Spring相关注解（@Component、@Repository、@Service、@Controller）的类并进行实例化、初始化等  -->
     <context:component-scan base-package="com.jingluu.admin.auth.controller"/>
 
-
-
     <!-- 视图解释器，根据视图的逻辑名称寻找物理视图 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -44,17 +42,14 @@
                                <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
                            </bean>
                        </property>
-                       <property name="serializationInclusion">
-                           <value>ALWAYS</value>
-                       </property>
-                       <property name="config">
-                           <value type="com.fasterxml.jackson.databind.SerializationFeature">FAIL_ON_EMPTY_BEANS</value>
-                       </property>
                    </bean>
                </property>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+
+    <mvc:view-controller path="/verificationCode" view-name="common/verificationCode" />
 
     <!-- 处理静态资源(自动注册SimpleUrlHandlerMapping) -->
     <mvc:resources mapping="/assets/**" location="/assets/"/>
