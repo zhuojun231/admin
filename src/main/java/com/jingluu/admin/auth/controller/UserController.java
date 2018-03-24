@@ -2,12 +2,14 @@ package com.jingluu.admin.auth.controller;
 
 import com.jingluu.admin.auth.service.UserService;
 import com.jingluu.admin.auth.vo.AuthUserVO;
+import constants.WebConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
@@ -24,8 +26,9 @@ public class UserController {
     @ResponseBody
     public Object login(String username, String password,String verificationCode, HttpServletRequest request){
         ResponseBean responseBean = new ResponseBean();
+        HttpSession session = request.getSession();
 
-        String vCode = (String) request.getSession().getAttribute("verificationCode");
+        String vCode = (String) session.getAttribute("verificationCode");
 
         if(username == null || "".equals(username.trim())
                 || password == null || "".equals(password.trim())){
@@ -47,10 +50,25 @@ public class UserController {
 
         if(userVO == null){
             responseBean.fail("账号或密码有误");
+        }else {
+            session.setAttribute(WebConstants.CURRENT_USER,userVO);
+            responseBean.setData(userVO);
         }
 
-        responseBean.setData(userVO);
+
 
         return responseBean;
+    }
+
+    /**
+     * 退出
+     * @param request
+     * @return
+     */
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request){
+        //使当前Session无效
+        request.getSession().invalidate();
+        return "redirect:login";
     }
 }

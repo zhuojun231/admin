@@ -29,7 +29,7 @@
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <img id="verificationCodeImage" src="/verificationCode">
+        <img id="verificationCodeImage" src="${ctx}/verificationCode">
         <a href="javascript:void(0);" id="verificationCodeBtn" style="margin-left: 10px;" class="label label-success">换一个</a>
       </div>
       <div class="form-group has-feedback">
@@ -61,9 +61,9 @@
 <!-- iCheck -->
 <script src="${pageContext.request.contextPath}/assets/plugins/iCheck/icheck.min.js"></script>
 
-<script src="${pageContext.request.contextPath}/assets/js/admin/login.js?v=1.0.2"></script>
+<script src="${pageContext.request.contextPath}/assets/js/admin/login.js?v=1.0.4"></script>
 
-    <script>
+<script type="text/javascript">
   $(function () {
     $('input').iCheck({
       checkboxClass: 'icheckbox_square-blue',

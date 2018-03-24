@@ -19,3 +19,11 @@ folder instead of downloading all of them to reduce the load. -->
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+<%
+    //上下文路径，页面可以通过${ctx}获取
+    pageContext.setAttribute("ctx",request.getContextPath());
+%>
+<script type="text/javascript">
+    //在JS文件中使用
+    var ctx = "${ctx}";
+</script>
