@@ -1,10 +1,10 @@
-package com.jingluu.admin.auth.entity;
+package com.jingluu.admin.auth.vo;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class AuthRole implements Serializable {
+public class AuthRoleVO implements Serializable {
     private Integer id;
 
     /**
@@ -26,7 +26,7 @@ public class AuthRole implements Serializable {
      */
     private String description;
 
-    List<AuthPermission> permissions;
+    List<AuthPermissionVO> permissions;
 
     private static final long serialVersionUID = 1L;
 
@@ -78,11 +78,11 @@ public class AuthRole implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
-    public List<AuthPermission> getPermissions() {
+    public List<AuthPermissionVO> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<AuthPermission> permissions) {
+    public void setPermissions(List<AuthPermissionVO> permissions) {
         this.permissions = permissions;
     }
 }

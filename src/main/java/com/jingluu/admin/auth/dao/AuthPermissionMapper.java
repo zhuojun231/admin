@@ -1,5 +1,6 @@
 package com.jingluu.admin.auth.dao;
 
+import com.jingluu.admin.auth.entity.AuthFunctionPermission;
 import com.jingluu.admin.auth.entity.AuthPermission;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +18,6 @@ public interface AuthPermissionMapper {
     int updateByPrimaryKey(AuthPermission record);
 
     List<AuthPermission> selectUserMenuList(@Param("userId") Long userId);
+
+    List<AuthFunctionPermission> selectFunctionPermissionList();
 }

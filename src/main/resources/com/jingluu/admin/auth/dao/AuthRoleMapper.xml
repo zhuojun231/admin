@@ -8,11 +8,19 @@
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
     <result column="description" jdbcType="VARCHAR" property="description" />
+    <collection property="permissions"
+                column="id"
+                ofType="AuthPermission"
+                select="com.jingluu.admin.auth.dao.AuthPermissionMapper.selectRolePermissionList"/>
+
+  
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from auth_role
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.jingluu.admin.auth.entity.AuthRole">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
@@ -22,6 +30,7 @@
     values (#{name,jdbcType=VARCHAR}, #{enabled,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, 
       #{lastUpdateTime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.jingluu.admin.auth.entity.AuthRole">
     update auth_role
     set `name` = #{name,jdbcType=VARCHAR},
@@ -31,13 +40,27 @@
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id, `name`, enabled, created_time, last_update_time, description
     from auth_role
     where id = #{id,jdbcType=INTEGER}
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select id, `name`, enabled, created_time, last_update_time, description
     from auth_role
   </select>
+
+  <select id="selectUserRoleList" parameterType="long" resultMap="BaseResultMap">
+     SELECT
+          r.id, r.name, r.code
+      FROM
+          auth_role r,
+          auth_user_role ur
+      WHERE
+          r.id = ur.role_id
+          AND ur.user_id = #{userId}
+  </select>
+
 </mapper>

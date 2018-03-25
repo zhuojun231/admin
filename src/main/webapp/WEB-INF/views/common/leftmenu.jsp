@@ -20,6 +20,7 @@
             <c:if test="${!empty currentUser.menuList}">
                 <c:forEach items="${currentUser.menuList}" var="authMenu">
                     <li class="treeview">
+                        <!-- 一级菜单 -->
                         <a href="#">
                             <i class="fa fa-user-o"></i>
                             <span>${authMenu.name}</span>
@@ -28,6 +29,7 @@
                             </span>
                         </a>
                         <c:if test="${!empty authMenu.subPermissions}">
+                            <!-- 二级子菜单 -->
                             <ul class="treeview-menu">
                                 <c:forEach items="${authMenu.subPermissions}" var="subPerm">
                                     <li><a href="${ctx}${subPerm.url}"><i class="fa fa-circle-o"></i> ${subPerm.name}</a></li>

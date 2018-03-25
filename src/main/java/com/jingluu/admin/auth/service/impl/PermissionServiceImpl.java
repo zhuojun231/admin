@@ -1,13 +1,11 @@
 package com.jingluu.admin.auth.service.impl;
 
 import com.jingluu.admin.auth.dao.AuthPermissionMapper;
-import com.jingluu.admin.auth.dao.AuthUserMapper;
+import com.jingluu.admin.auth.entity.AuthFunctionPermission;
 import com.jingluu.admin.auth.entity.AuthPermission;
-import com.jingluu.admin.auth.entity.AuthUser;
 import com.jingluu.admin.auth.service.PermissionService;
-import com.jingluu.admin.auth.service.UserService;
+import com.jingluu.admin.auth.vo.AuthFunctionPermissionVO;
 import com.jingluu.admin.auth.vo.AuthPermissionVO;
-import com.jingluu.admin.auth.vo.AuthUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +26,20 @@ public class PermissionServiceImpl implements PermissionService {
         if(null != permissions && !permissions.isEmpty()){
             for(AuthPermission permission : permissions){
                 resultList.add(toVO(permission));
+            }
+        }
+        return resultList;
+    }
+
+    @Override
+    public List<AuthFunctionPermissionVO> findFunctionPermissionList() {
+        List<AuthFunctionPermissionVO> resultList = new ArrayList<>();
+
+        List<AuthFunctionPermission> permissions = permissionMapper.selectFunctionPermissionList();
+
+        if(null != permissions && !permissions.isEmpty()){
+            for(AuthFunctionPermission permission : permissions){
+                resultList.add(toFunctionPermissionVO(permission));
             }
         }
         return resultList;
@@ -56,6 +68,17 @@ public class PermissionServiceImpl implements PermissionService {
                 }
                 vo.setSubPermissions(voList);
             }
+        }
+        return vo;
+    }
+
+    private AuthFunctionPermissionVO toFunctionPermissionVO(AuthFunctionPermission permission){
+        AuthFunctionPermissionVO vo = null;
+        if(null != permission) {
+            vo = new AuthFunctionPermissionVO();
+            vo.setUrl(permission.getUrl());
+            vo.setRoles(permission.getRoles());
+            vo.setPermissions(permission.getPermissions());
         }
         return vo;
     }
