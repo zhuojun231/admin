@@ -65,7 +65,7 @@ window['PR_SHOULD_USE_CONTINUATION'] = true;
 (function () {
   // Keyword lists for various languages.
   // We use things that coerce to strings to make them compact when minified
-  // and to defeat aggressive optimizers that fold large string constants.
+  // and to defeat aggressive optimizers that fold large string com.jingluu.admin.constants.
   var FLOW_CONTROL_KEYWORDS = ["break,continue,do,else,for,if,return,while"];
   var C_KEYWORDS = [FLOW_CONTROL_KEYWORDS,"auto,case,char,const,default," + 
       "double,enum,extern,float,goto,int,long,register,short,signed,sizeof," +

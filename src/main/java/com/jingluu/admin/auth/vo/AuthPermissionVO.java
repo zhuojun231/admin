@@ -1,16 +1,16 @@
-package com.jingluu.admin.auth.entity;
+package com.jingluu.admin.auth.vo;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class AuthPermission implements Serializable {
-    private Long id;
+public class AuthPermissionVO implements Serializable {
+    private String id;
 
     /**
      * 0表示没有上一级 
      */
-    private Long parentId;
+    private String parentId;
 
     /**
      * 权限名称 
@@ -41,7 +41,7 @@ public class AuthPermission implements Serializable {
 
     private Date lastUpdateTime;
 
-    private List<AuthPermission> subPermissions;
+    private List<AuthPermissionVO> subPermissions;
 
 
 
@@ -57,19 +57,19 @@ public class AuthPermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
@@ -145,11 +145,11 @@ public class AuthPermission implements Serializable {
         this.description = description == null ? null : description.trim();
     }
 
-    public List<AuthPermission> getSubPermissions() {
+    public List<AuthPermissionVO> getSubPermissions() {
         return subPermissions;
     }
 
-    public void setSubPermissions(List<AuthPermission> subPermissions) {
+    public void setSubPermissions(List<AuthPermissionVO> subPermissions) {
         this.subPermissions = subPermissions;
     }
 }

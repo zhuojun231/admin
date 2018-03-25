@@ -3589,7 +3589,7 @@
 						j++;
 					}
 	
-					/* Replace jQuery UI constants @todo depreciated */
+					/* Replace jQuery UI com.jingluu.admin.constants @todo depreciated */
 					if ( sAttr == "H" )
 					{
 						sAttr = classes.sJUIHeader;
@@ -11799,7 +11799,7 @@
 		 *         <li>'r' - pRocessing</li>
 		 *       </ul>
 		 *     </li>
-		 *     <li>The following constants are allowed:
+		 *     <li>The following com.jingluu.admin.constants are allowed:
 		 *       <ul>
 		 *         <li>'H' - jQueryUI theme "header" classes ('fg-toolbar ui-widget-header ui-corner-tl ui-corner-tr ui-helper-clearfix')</li>
 		 *         <li>'F' - jQueryUI theme "footer" classes ('fg-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix')</li>

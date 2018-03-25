@@ -2834,7 +2834,7 @@ Zone Europe/Simferopol	2:16:24 -	LMT	1880
 # the Sov[i]et Union.  In 1985 the SU reverted to standard Europe[a]n switch
 # dates...
 #
-# It should also be remembered that time-zones are not constants; e.g.
+# It should also be remembered that time-zones are not com.jingluu.admin.constants; e.g.
 # Portugal switched in 1976 from MET (or CET) to WET with DST...
 # Note also that though there were rules for switch dates not
 # all countries abided to these dates, and many individual deviations

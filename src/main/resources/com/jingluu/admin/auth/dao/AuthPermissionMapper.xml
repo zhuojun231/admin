@@ -14,10 +14,20 @@
         <result column="order" jdbcType="INTEGER" property="order"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
     </resultMap>
+
+    <resultMap id="TreeResultMap" type="AuthPermission" extends="BaseResultMap">
+        <collection
+           property="subPermissions"
+           column="{parentId=id,type=type}"
+           ofType="AuthPermission"
+           select="com.jingluu.admin.auth.dao.AuthPermissionMapper.selectByParentId"/>
+    </resultMap>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from auth_permission
     where id = #{id,jdbcType=BIGINT}
   </delete>
+
     <insert id="insert" parameterType="com.jingluu.admin.auth.entity.AuthPermission">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
             SELECT LAST_INSERT_ID()
@@ -31,6 +41,7 @@
         #{createdTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{order,jdbcType=INTEGER},
         #{description,jdbcType=VARCHAR})
     </insert>
+
     <update id="updateByPrimaryKey" parameterType="com.jingluu.admin.auth.entity.AuthPermission">
     update auth_permission
     set parent_id = #{parentId,jdbcType=BIGINT},
@@ -45,15 +56,51 @@
       description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select id, parent_id, `name`, code, url, `type`, enabled, created_time, last_update_time, 
     `order`, description
     from auth_permission
     where id = #{id,jdbcType=BIGINT}
   </select>
+
     <select id="selectAll" resultMap="BaseResultMap">
     select id, parent_id, `name`, code, url, `type`, enabled, created_time, last_update_time, 
     `order`, description
     from auth_permission
   </select>
+
+    <sql id="USER_PERMISSION_SQL">
+        SELECT
+            p.id, p.parent_id, p.name, p.code, p.url, p.type
+        FROM
+            auth_permission p,
+            auth_role_permission rp,
+            auth_role r,
+            auth_user_role ur
+        WHERE
+            p.id = rp.permission_id
+            AND rp.role_id = r.id
+            AND r.id = ur.role_id
+    </sql>
+
+    <select id="selectByParentId" parameterType="map" resultMap="TreeResultMap">
+        SELECT
+          p.id, p.parent_id, p.name, p.code, p.url, p.type
+        FROM auth_permission p
+        WHERE p.parent_id = #{parentId}
+        <if test="type != null">
+            AND p.type = #{type}
+        </if>
+    </select>
+
+    <select id="selectUserMenuList" resultMap="TreeResultMap">
+        <include refid="USER_PERMISSION_SQL" />
+        AND p.type = 1
+        AND p.parent_id = 0
+        <if test="userId != null">
+            AND ur.user_id = #{userId}
+        </if>
+        ORDER BY p.order
+   </select>
 </mapper>

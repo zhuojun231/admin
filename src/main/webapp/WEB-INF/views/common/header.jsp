@@ -3,9 +3,9 @@
     <!-- Logo -->
     <a href="index2.html" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>J</b>L</span>
+        <span class="logo-mini"><b>享乎</b></span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>JingLuu</span>
+        <span class="logo-lg"><b>享乎后台管理</b></span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -233,7 +233,7 @@
                                 <a href="#" class="btn btn-default btn-flat">个人信息</a>
                             </div>
                             <div class="pull-right">
-                                <a href="${pageContext.request.contextPath}/user/logout" class="btn btn-default btn-flat">退出</a>
+                                <a href="${pageContext.request.contextPath}/logout" class="btn btn-default btn-flat">退出</a>
                             </div>
                         </li>
                     </ul>

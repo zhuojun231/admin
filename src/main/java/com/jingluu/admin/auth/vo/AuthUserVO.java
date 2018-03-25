@@ -2,6 +2,7 @@ package com.jingluu.admin.auth.vo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class AuthUserVO implements Serializable {
     private Long id;
@@ -29,6 +30,8 @@ public class AuthUserVO implements Serializable {
     private Date createdTime;
 
     private Date lastUpdateTime;
+
+    private List<AuthPermissionVO> menuList;
 
     /**
      * 最后最后登陆时间 
@@ -99,5 +102,13 @@ public class AuthUserVO implements Serializable {
 
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public List<AuthPermissionVO> getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(List<AuthPermissionVO> menuList) {
+        this.menuList = menuList;
     }
 }

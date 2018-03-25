@@ -89,7 +89,7 @@ var wysihtml5 = {
 
     var OBJECT = "object", FUNCTION = "function", UNDEFINED = "undefined";
 
-    // Minimal set of properties required for DOM Level 2 Range compliance. Comparison constants such as START_TO_START
+    // Minimal set of properties required for DOM Level 2 Range compliance. Comparison com.jingluu.admin.constants such as START_TO_START
     // are omitted because ranges in KHTML do not have them but otherwise work perfectly well. See issue 113.
     var domRangeProperties = ["startContainer", "startOffset", "endContainer", "endOffset", "collapsed",
         "commonAncestorContainer"];
@@ -2354,7 +2354,7 @@ var wysihtml5 = {
                 /*--------------------------------------------------------------------------------------------------------*/
 
                 // Test for and correct WebKit bug that has the behaviour of compareBoundaryPoints round the wrong way for
-                // constants START_TO_END and END_TO_START: https://bugs.webkit.org/show_bug.cgi?id=20738
+                // com.jingluu.admin.constants START_TO_END and END_TO_START: https://bugs.webkit.org/show_bug.cgi?id=20738
 
                 range.selectNodeContents(testTextNode);
                 range.setEnd(testTextNode, 3);

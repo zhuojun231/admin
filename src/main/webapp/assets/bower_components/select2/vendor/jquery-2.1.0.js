@@ -597,7 +597,7 @@
                     return 0;
                 },
 
-            // General-purpose constants
+            // General-purpose com.jingluu.admin.constants
                 strundefined = typeof undefined,
                 MAX_NEGATIVE = 1 << 31,
 

@@ -1,8 +1,9 @@
 package com.jingluu.admin.auth.controller;
 
+import com.jingluu.admin.auth.service.PermissionService;
 import com.jingluu.admin.auth.service.UserService;
 import com.jingluu.admin.auth.vo.AuthUserVO;
-import constants.WebConstants;
+import com.jingluu.admin.constants.WebConstants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
@@ -21,6 +22,8 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PermissionService permissionService;
 
     @RequestMapping("/login")
     public String login(){
@@ -69,6 +72,8 @@ public class LoginController {
         }
 
         AuthUserVO userVO = userService.findByUsername(username);
+        userVO.setMenuList(permissionService.findUserMenuList(userVO.getId()));
+
         session.setAttribute(WebConstants.CURRENT_USER,userVO);
         responseBean.setData(userVO);
 
