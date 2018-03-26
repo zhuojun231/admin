@@ -17,15 +17,16 @@
         <property name="successUrl" value="/index"/>
         <!-- 访问未经授权的功能将跳转到unauthorizedUrl指定到页面 -->
         <property name="unauthorizedUrl" value="/unauthorized"/>
-        <!-- 认证、授权过滤器定义 -->
-        <property name="filterChainDefinitionMap">
+        <!-- 认证、授权过滤器定义(调用filterChainDefinition实例的getFilterChainDefinitionMap()方法) -->
+        <property name="filterChainDefinitionMap" value="#{filterChainDefinition.getFilterChainDefinitionMap()}"/>
+        <!--<property name="filterChainDefinitionMap">
             <map>
                 <entry key="/login" value="anon"/>
                 <entry key="/index" value="authc"/>
                 <entry key="/user/list" value="authc,roles[admin]"/>
                 <entry key="/user/add" value="authc,roles[admin],perms[user:add]"/>
             </map>
-        </property>
+        </property>-->
         <!--<property name="filterChainDefinitions">
             <value>
                 /user/login=anon

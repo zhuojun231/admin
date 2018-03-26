@@ -1,6 +1,9 @@
 package com.jingluu.admin.auth.shiro;
 
+import com.jingluu.admin.auth.service.RoleService;
 import com.jingluu.admin.auth.service.UserService;
+import com.jingluu.admin.auth.vo.AuthPermissionVO;
+import com.jingluu.admin.auth.vo.AuthRoleVO;
 import com.jingluu.admin.auth.vo.AuthUserVO;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -10,13 +13,18 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
- * 自定义Realm，获取用户信息、角色信息、权限信息，并对用户进行认证和授权
+ * 自定义Realm，获取用户、角色、权限信息
  */
 @Component("adminAuthorizingRealm")
 public class AdminAuthorizingRealm  extends AuthorizingRealm{
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
+
 
     /**
      * 授权
@@ -27,12 +35,29 @@ public class AdminAuthorizingRealm  extends AuthorizingRealm{
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo auth = new SimpleAuthorizationInfo();
 
-        //添加当前用户所拥有到角色
-        auth.addRole("admin");
+        //获取用户登录账号
+        String username = (String) super.getAvailablePrincipal(principalCollection);
 
-        //添加当前用户所拥有到权限
-        auth.addStringPermission("user:add");
+        //查询用户信息
+        AuthUserVO user = this.userService.findByUsername(username);
+        if(user != null){
+            //查询用户拥有的角色和权限
+            List<AuthRoleVO> roles = roleService.findUserRoleList(user.getId());
+            if(roles != null && !roles.isEmpty()){
+                for (AuthRoleVO role : roles){
+                    //角色
+                    auth.addRole(role.getCode());
 
+                    //操作权限
+                    List<AuthPermissionVO> functions = role.getPermissions();
+                    if(functions != null && !functions.isEmpty()){
+                        for (AuthPermissionVO permission : functions){
+                            auth.addStringPermission(permission.getCode());
+                        }
+                    }
+                }
+            }
+        }
         return auth;
     }
 
@@ -51,7 +76,7 @@ public class AdminAuthorizingRealm  extends AuthorizingRealm{
         AuthUserVO user = userService.findByUsername(username);
 
         if(null == user){
-            throw new UnknownAccountException("账号或密码有误");
+            throw new UnknownAccountException("未知账户");
         }
 
         if(user.getEnabled().intValue() == 0){

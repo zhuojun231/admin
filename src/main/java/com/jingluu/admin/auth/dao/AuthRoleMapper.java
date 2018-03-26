@@ -14,4 +14,6 @@ public interface AuthRoleMapper {
     List<AuthRole> selectAll();
 
     int updateByPrimaryKey(AuthRole record);
+
+    List<AuthRole> selectUserRoleList(Long userId);
 }

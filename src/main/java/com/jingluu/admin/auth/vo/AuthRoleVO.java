@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 public class AuthRoleVO implements Serializable {
-    private Integer id;
+    private String id;
 
     /**
      * 角色名称 
      */
     private String name;
+
+    private String code;
 
     /**
      * 1 - 可用；0 - 不可用 
@@ -30,11 +32,11 @@ public class AuthRoleVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -84,5 +86,13 @@ public class AuthRoleVO implements Serializable {
 
     public void setPermissions(List<AuthPermissionVO> permissions) {
         this.permissions = permissions;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

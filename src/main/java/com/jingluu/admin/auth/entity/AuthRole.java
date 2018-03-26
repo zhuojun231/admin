@@ -12,6 +12,8 @@ public class AuthRole implements Serializable {
      */
     private String name;
 
+    private String code;
+
     /**
      * 1 - 可用；0 - 不可用 
      */
@@ -84,5 +86,13 @@ public class AuthRole implements Serializable {
 
     public void setPermissions(List<AuthPermission> permissions) {
         this.permissions = permissions;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -24,19 +24,19 @@
     </resultMap>
     
     <resultMap id="FunctionPermissionResultMap" type="com.jingluu.admin.auth.entity.AuthFunctionPermission">
-       <id column="permission_url" property="permissionUrl" javaType="VARCHAR"/>
+       <id column="permission_url" property="url" jdbcType="VARCHAR"/>
        <collection property="roles" ofType="String">
-           <id column="role_code" javaType="VARCHAR"/>
+           <id column="role_code" jdbcType="VARCHAR"/>
        </collection>
-        <collection property="permissions" ofType="String">
-            <id column="permission_code" javaType="VARCHAR"/>
-        </collection>
+       <collection property="permissions" ofType="String">
+           <id column="permission_code" jdbcType="VARCHAR"/>
+       </collection>
     </resultMap>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from auth_permission
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
+      delete from auth_permission
+      where id = #{id,jdbcType=BIGINT}
+    </delete>
 
     <insert id="insert" parameterType="com.jingluu.admin.auth.entity.AuthPermission">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
