@@ -56,9 +56,9 @@ public class FilterChainDefinition {
                     filterChainDefinition += "," + roleFilterDefinition;
                 }
                 if (!permsFilterDefinition.equals("")) {
-                    filterChainDefinition += "," + filterChainDefinition;
+                    filterChainDefinition += "," + permsFilterDefinition;
                 }
-                filterChainDefinitionMap.put(url, permsFilterDefinition);
+                filterChainDefinitionMap.put(url, filterChainDefinition);
             }
         }
 
