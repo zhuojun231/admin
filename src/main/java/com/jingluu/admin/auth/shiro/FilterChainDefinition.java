@@ -58,7 +58,7 @@ public class FilterChainDefinition {
                 if (!permsFilterDefinition.equals("")) {
                     filterChainDefinition += "," + filterChainDefinition;
                 }
-                filterChainDefinitionMap.put(url, filterChainDefinition);
+                filterChainDefinitionMap.put(url, permsFilterDefinition);
             }
         }
 
