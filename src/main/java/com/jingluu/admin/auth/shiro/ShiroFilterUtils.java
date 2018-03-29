@@ -14,9 +14,9 @@ public class ShiroFilterUtils {
     public static String FORMAT_ROLES = FILTER_NAME_ROLES.concat("[%s]");
     public static String FORMAT_PERMS = FILTER_NAME_PERMS.concat("[%s]");
 
-
-    public static int CREDENTIAL_HASH_ITERATIONS = 2;
+    public final static String CREDENTIAL_SALT = "xianghuu";
     public static String ENCRYPTION_ALGORITHM_HASH_MD5 ="MD5";
+    public static int CREDENTIAL_HASH_ITERATIONS = 2;
 
     public static String formatRoles(List<String> roles){
         String authcRoles = null;
