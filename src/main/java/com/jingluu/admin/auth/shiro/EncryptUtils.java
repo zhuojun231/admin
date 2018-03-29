@@ -1,6 +1,5 @@
-package com.jingluu.admin.util;
+package com.jingluu.admin.auth.shiro;
 
-import com.jingluu.admin.auth.shiro.ShiroFilterUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
 
