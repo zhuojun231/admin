@@ -27,8 +27,10 @@ public class FilterChainDefinition {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 
         //登录可以匿名访问，无需认证
+
         filterChainDefinitionMap.put("/login", ShiroFilterUtils.FILTER_NAME_ANON);
         filterChainDefinitionMap.put("/doLogin", ShiroFilterUtils.FILTER_NAME_ANON);
+        filterChainDefinitionMap.put("/verificationCode", ShiroFilterUtils.FILTER_NAME_ANON);
 
         //功能和角色、权限对应列表
         List<AuthFunctionPermissionVO> funcPerms = permissionService.findFunctionPermissionList();

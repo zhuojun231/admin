@@ -42,7 +42,7 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Table With Full Features</h3>
-              <a href="/user/add" class="btn btn-success">新增</a>
+              <a id="addUser" href="javaScript:void(0);" class="btn btn-success">新增</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -511,6 +511,29 @@
             'info'        : true,
             'autoWidth'   : false
         })
+
+        $("#addUser").click(function () {
+            $.ajax({
+                type : "POST",
+                url : ctx + "/user/add",
+                dataType : "json",
+                data : {
+                    username :"",
+                    password : ""
+                },
+                success : function (result) {
+                    console.log(result);
+                    if(result.status == 0){
+                        alert("success");
+                    }else {
+                        alert("message: " + result.message);
+                    }
+                },
+                error : function (xmlHttpRequest, textStatus, errorThrown) {
+                    alert("error:" + xmlHttpRequest.responseText);
+                }
+            });
+        });
     })
 </script>
 </html>
