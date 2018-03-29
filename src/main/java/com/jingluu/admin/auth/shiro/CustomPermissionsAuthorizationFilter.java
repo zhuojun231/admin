@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * 扩展PermissionsAuthorizationFilter过滤器，加入AJAX判断与消息返回
  */
-@Component("customRolesAuthorizationFilter")
+@Component("customPermissionsAuthorizationFilter")
 public class CustomPermissionsAuthorizationFilter extends RolesAuthorizationFilter {
 
     @Override
