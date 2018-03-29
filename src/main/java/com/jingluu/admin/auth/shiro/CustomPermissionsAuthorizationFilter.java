@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 扩展RolesAuthorizationFilter过滤器，加入AJAX判断与消息返回
+ * 扩展PermissionsAuthorizationFilter过滤器，加入AJAX判断与消息返回
  */
 @Component("customRolesAuthorizationFilter")
-public class CustomRolesAuthorizationFilter extends RolesAuthorizationFilter {
+public class CustomPermissionsAuthorizationFilter extends RolesAuthorizationFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {

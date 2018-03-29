@@ -1,7 +1,5 @@
 package com.jingluu.admin.auth.shiro;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jingluu.admin.auth.controller.ResponseBean;
 import com.jingluu.admin.util.WebUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.stereotype.Component;
@@ -12,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 扩展登录认证过滤器
+ * 扩展FormAuthenticationFilter认证过滤器，加入AJAX判断与消息返回
  */
 @Component("customFormAuthenticationFilter")
 public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
@@ -34,18 +32,9 @@ public class CustomFormAuthenticationFilter extends FormAuthenticationFilter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 
+        //如果是AJAX请求
         if(WebUtils.isAsync(httpServletRequest)){
-            //如果是AJAX请求
-            ResponseBean responseBean = new ResponseBean();
-            responseBean.fail("请登录");
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            String error = objectMapper.writeValueAsString(responseBean);
-
-            httpServletResponse.setCharacterEncoding("UTF-8");
-            httpServletResponse.setContentType("application/json");
-            httpServletResponse.getWriter().write(error);
-
+            WebUtils.sendErrorAsync(httpServletResponse,"请登录");
             //不进入下一个过滤器，直接返回错误结果
             return false;
         }
