@@ -3,6 +3,10 @@ package com.jingluu.admin.auth.shiro;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.springframework.stereotype.Component;
 
+/**
+ * 凭证匹配器
+ * （用于校验密码）
+ */
 @Component("credentialsMatcher")
 public class CustomCredentialsMatcher extends HashedCredentialsMatcher {
     @Override
