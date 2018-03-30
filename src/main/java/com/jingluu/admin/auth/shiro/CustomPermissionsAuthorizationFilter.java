@@ -1,7 +1,7 @@
 package com.jingluu.admin.auth.shiro;
 
 import com.jingluu.admin.util.WebUtils;
-import org.apache.shiro.web.filter.authz.RolesAuthorizationFilter;
+import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
