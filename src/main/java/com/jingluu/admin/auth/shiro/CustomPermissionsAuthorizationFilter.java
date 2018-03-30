@@ -14,7 +14,7 @@ import java.io.IOException;
  * 扩展PermissionsAuthorizationFilter过滤器，加入AJAX判断与消息返回
  */
 @Component("customPermissionsAuthorizationFilter")
-public class CustomPermissionsAuthorizationFilter extends RolesAuthorizationFilter {
+public class CustomPermissionsAuthorizationFilter extends PermissionsAuthorizationFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
