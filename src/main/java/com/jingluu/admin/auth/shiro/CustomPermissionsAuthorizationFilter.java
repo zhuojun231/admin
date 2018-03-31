@@ -1,7 +1,7 @@
 package com.jingluu.admin.auth.shiro;
 
 import com.jingluu.admin.util.WebUtils;
-import org.apache.shiro.web.filter.authz.RolesAuthorizationFilter;
+import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletRequest;
@@ -14,7 +14,7 @@ import java.io.IOException;
  * 扩展PermissionsAuthorizationFilter过滤器，加入AJAX判断与消息返回
  */
 @Component("customPermissionsAuthorizationFilter")
-public class CustomPermissionsAuthorizationFilter extends RolesAuthorizationFilter {
+public class CustomPermissionsAuthorizationFilter extends PermissionsAuthorizationFilter {
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue) throws Exception {
