@@ -1,6 +1,7 @@
 package com.jingluu.admin.auth.dao;
 
 import com.jingluu.admin.auth.entity.AuthUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,7 +14,9 @@ public interface AuthUserMapper {
 
     List<AuthUser> selectAll();
 
-    List<AuthUser> selectList(AuthUser authUser);
+    Integer count(AuthUser authUser);
+
+    List<AuthUser> selectList(@Param("user") AuthUser authUser,@Param("offset") Integer offset,@Param("size") Integer size);
 
     int updateByPrimaryKey(AuthUser authUser);
 }

@@ -64,9 +64,8 @@
     from auth_user
   </select>
 
-    <select id="selectList" resultMap="BaseResultMap">
-        select id, username, `password`, nickname, enabled, created_time, last_update_time,
-        last_login_time
+    <select id="count" resultType="int">
+        select count(1)
         from auth_user
         <where>
             <if test="username != null">
@@ -82,5 +81,28 @@
                 and nickname = #{nickname}
             </if>
         </where>
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select id, username, `password`, nickname, enabled, created_time, last_update_time,
+        last_login_time
+        from auth_user
+        <where>
+            <if test="user.username != null">
+                and username = #{user.username}
+            </if>
+            <if test="user.password != null">
+                and password = #{user.password}
+            </if>
+            <if test="user.enabled != null">
+                and enabled = #{user.enabled}
+            </if>
+            <if test="user.nickname != null">
+                and nickname = #{user.nickname}
+            </if>
+        </where>
+        <if test="offset != null and size != null">
+            limit #{offset},#{size}
+        </if>
     </select>
 </mapper>
