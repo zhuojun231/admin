@@ -1,4 +1,5 @@
 <%@page pageEncoding="UTF-8" contentType="text/html;charset=utf-8" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +43,10 @@
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Data Table With Full Features</h3>
-              <a id="addUser" href="javaScript:void(0);" class="btn btn-success">新增</a>
+                <a id="addUser" href="javaScript:void(0);" class="btn btn-success">新增</a>
+              <shiro:hasPermission  name="USER:MGT:LIST">
+                <a id="addUser" href="javaScript:void(0);" class="btn btn-success">新增</a>
+              </shiro:hasPermission>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

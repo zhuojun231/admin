@@ -141,7 +141,7 @@
             auth_permission p,
             auth_role_permission rp
         WHERE
-            p.id = rp.permission_id AND p.type = 2
+            p.id = rp.permission_id
                 AND rp.role_id = #{roleId}
     </select>
 </mapper>
